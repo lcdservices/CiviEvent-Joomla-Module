@@ -1,0 +1,4 @@
+CiviEvent Joomla Module
+
+v3.0.0 :: 2011-08-08
+Updated code for Joomla 1.6+ compatibility. No functionality changes. General cleanup throughout. Restructured parameter options. Moved repository to GitHub public repo.

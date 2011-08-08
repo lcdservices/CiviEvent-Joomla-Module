@@ -1,11 +1,19 @@
 <?php
+/**
+* CiviEvent Joomla Module
+*
+* @copyright    Copyright (C) 2005-2011 Open Source Matters. All rights reserved.
+* @license      http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+*/
  
-// no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+// No direct access
+defined('_JEXEC') or die;
 
-// Include the syndicate functions only once
+// Include the helper
 require_once( dirname(__FILE__).DS.'helper.php' );
-$eventtitles = modCiviEventHelper::getEventTitles( $params );
-$display_params = modCiviEventHelper::sendParam( $params );
+
+$eventtitles   = modCiviEventHelper::getEventTitles( $params );
+$displayParams = modCiviEventHelper::sendParam( $params );
+
 require( JModuleHelper::getLayoutPath( 'mod_civievent' ) );
 ?>

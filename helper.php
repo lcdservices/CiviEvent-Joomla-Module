@@ -136,9 +136,6 @@ class modCiviEventHelper
 				$enddate = date('Y-m-d', $enddate);
 			}
 			
-			//echo '<br />startdate: '.$startdate;
-			//echo '<br />enddate: '.$enddate.'<br />';
-			
 			if( $startdate=="" OR $startdate=="Select" ) //no start date selected, throw error
 				{
 				JError::raiseWarning(500,"No start date selected for CiviEvent module.");
@@ -175,7 +172,6 @@ class modCiviEventHelper
 		$query .= $from.' ';
 		$query .= $where.$wheredaterange.' ';
 		$query .= $sort;
-		//echo $query.'<br />';
 		
 		//run $query;
 		$db->setQuery($query);
@@ -191,15 +187,14 @@ class modCiviEventHelper
 	} //end getEventTitles
 	
 	function sendParam(&$params) {
-		$display_params[link] = trim($params->get('link'));
-		$modal = trim($params->get('modal'));	
-		$display_params[modal] = $modal;
-		$display_params[maxevents] = trim($params->get('maxevents'));
-		$display_params[showdates] = trim($params->get('showdates'));
-		$display_params[dateformat] = trim($params->get('dateformat'));
-		$display_params[summary] = trim($params->get('summary'));
+		$displayParams['link']       = trim($params->get('link'));
+		$displayParams['modal']      = trim($params->get('modal'));
+		$displayParams['maxevents']  = trim($params->get('maxevents'));
+		$displayParams['showdates']  = trim($params->get('showdates'));
+		$displayParams['dateformat'] = trim($params->get('dateformat'));
+		$displayParams['summary']    = trim($params->get('summary'));
 	
-		return $display_params;
+		return $displayParams;
 	} //end sendParams
 }
 
