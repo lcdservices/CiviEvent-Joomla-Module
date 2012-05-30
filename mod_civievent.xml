@@ -100,6 +100,8 @@
             WHERE (civicrm_option_group.name = 'event_type')" 
             key_field="value" value_field="label" />
         
+        <field name="itemid" type="menuitem" state="1" label="Menu Item" description="Select which existing menu item the search result links should be assigned to." />
+            
         </fieldset>
         </fields>
     </config>

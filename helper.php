@@ -193,6 +193,7 @@ class modCiviEventHelper
 		$displayParams['showdates']  = trim($params->get('showdates'));
 		$displayParams['dateformat'] = trim($params->get('dateformat'));
 		$displayParams['summary']    = trim($params->get('summary'));
+		$displayParams['itemid']     = trim($params->get('itemid'));
 	
 		return $displayParams;
 	} //end sendParams
