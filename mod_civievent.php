@@ -16,4 +16,3 @@ $eventtitles   = modCiviEventHelper::getEventTitles( $params );
 $displayParams = modCiviEventHelper::sendParam( $params );
 
 require( JModuleHelper::getLayoutPath( 'mod_civievent' ) );
-?>

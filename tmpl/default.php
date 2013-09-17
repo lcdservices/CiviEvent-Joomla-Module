@@ -12,8 +12,8 @@ defined('_JEXEC') or die;
 jimport( 'joomla.html.html' );
 
 if ( $displayParams['modal'] ) {
-    jimport( 'joomla.html.html.behavior' );
-    JHtmlBehavior::modal();
+  jimport( 'joomla.html.html.behavior' );
+  JHtmlBehavior::modal();
 }
 ?>
 
@@ -31,23 +31,33 @@ foreach ($eventtitles as &$event) {
 
 	if ($x > $maxevents) {
 		return;
-	} else {
+	}
+  else {
 		$x++;
 	}   
     
-    $baselink = 'index.php?option=com_civicrm&task=civicrm/event/';
+  $baselink = 'index.php?option=com_civicrm&task=civicrm/event/';
     
 	for ($i=0, $n=count( $event->title ); ($i < $n) ; $i++) {
-    	
-    	if($displayParams['link']==1) { //link set to register
-    		$link 		 = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
-    		$modallink 	 = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID.'&tmpl=component' );
-    	} else { //link set to info page
-    		$link 		 = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID );
-    		$modallink 	 = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID.'&tmpl=component' );
-			$registernow = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
+    if($displayParams['link']==1) { //link set to register
+      $link = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
+      $modallink = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID.'&tmpl=component' );
+    }
+    else { //link set to info page
+      $link = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID );
+      $modallink = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID.'&tmpl=component' );
+      $registernow = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
 		}
 		
+    if ($displayParams['itemid']) {
+      $link .= '&Itemid='.$displayParams['itemid'];
+      $modallink .= '&Itemid='.$displayParams['itemid'];
+
+      if($registernow) {
+        $registernow .= '&Itemid='.$displayParams['itemid'];
+      }
+    }
+    
 		// Format date
 		$event->start_date = JHtml::date( $event->start_date, $displayParams['dateformat'] );
 		if ($event->end_date) {
@@ -56,14 +66,16 @@ foreach ($eventtitles as &$event) {
 		
 		if ($event->end_date) {
 			$eventdate = $event->start_date." &#8211;".$event->end_date;
-		} else {
+		}
+    else {
 			$eventdate = $event->start_date;
 		}
 		
 		// Build html
 		if( $displayParams['modal'] ) {
 			$linkhtml = '<li><a class="modal" href="'.$modallink.'" rel="{handler: \'iframe\', size: {x: 520, y: 400}}">'.$event->title.'</a>';
-		} else {
+		}
+    else {
 			$linkhtml = '<li><a href="'.$link.'" class="class_name">'.$event->title.'</a>';
 		}
 		echo $linkhtml;
@@ -74,14 +86,13 @@ foreach ($eventtitles as &$event) {
 		if ( $displayParams['showdates'] ) {
 			echo '<br /><span class="eventdate">'.$eventdate.'</span>';
 		}
-		if ( $displayParams['summary'] ) {
+		//Display summary text IF configured, and IF exists
+    if ( $displayParams[summary]==1 AND $event->summary ) {
 			echo '<br /><span class="eventsummary">'.$event->summary.'</span>';
 		}
 		echo '</li>';
-
-    }
+  }
 }
 
 echo '</ul>';
 ?>
-    	

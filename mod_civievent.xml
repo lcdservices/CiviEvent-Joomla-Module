@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="1.6" method="upgrade" client="site">
-	<name>mod_civievent</name>
-	<author>Brian Shaughnessy</author>
-	<creationDate>August, 2011</creationDate>
-	<copyright>Copyright (C) 2005-2011 Open Source Matters. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>brian@lcdservices.biz</authorEmail>
-	<authorUrl>www.lcdservices.biz</authorUrl>
-	<version>3.0.0</version>
-	<description>Displays a list of upcoming events configured in CiviCRM. The module will also retrieve all custom data associated with the event and passes it to the module template file (tmpl/default.php). However, it does not display those fields, as they will be specific to your installation. Modify the module template file (which can be done via an override in your main Joomla template folder) to insert those additional fields as desired. Original version by Nakul Ganesh through the Google Summer of Code (2009) program.</description>
-	
-	<files>
-		<folder>elements</folder>
-		<folder>tmpl</folder>
-        <filename>civievent.css</filename>
-        <filename>helper.php</filename>
-		<filename module="mod_civievent">mod_civievent.php</filename>
-        <filename>mod_civievent.xml</filename>
-	</files>
-	
-	<config>
-	    <fields name="params" addfieldpath="/modules/mod_civievent/elements">
-	    <fieldset name="basic">
+  <name>mod_civievent</name>
+  <author>Brian Shaughnessy</author>
+  <creationDate>August, 2011</creationDate>
+  <copyright>Copyright (C) 2005-2011 Open Source Matters. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <authorEmail>brian@lcdservices.biz</authorEmail>
+  <authorUrl>www.lcdservices.biz</authorUrl>
+  <version>3.1.0</version>
+  <description>Displays a list of upcoming events configured in CiviCRM. The module will also retrieve all custom data associated with the event and passes it to the module template file (tmpl/default.php). However, it does not display those fields, as they will be specific to your installation. Modify the module template file (which can be done via an override in your main Joomla template folder) to insert those additional fields as desired. Original version by Nakul Ganesh through the Google Summer of Code (2009) program.</description>
+  
+  <files>
+    <folder>elements</folder>
+    <folder>tmpl</folder>
+    <filename>civievent.css</filename>
+    <filename>helper.php</filename>
+    <filename module="mod_civievent">mod_civievent.php</filename>
+    <filename>mod_civievent.xml</filename>
+  </files>
+  
+  <config>
+    <fields name="params" addfieldpath="/modules/mod_civievent/elements">
+      <fieldset name="basic">
         
         <field type="spacer" label="&lt;b&gt;Choose how events will be selected&lt;/b&gt;" />
         
         <field name="mode" type="list" default="0" label="Selection Mode" description="Choose event selection method">
-            <option value="0">Default</option>
-            <option value="1">Date Range</option>
-            <option value="2">Event Selection</option>
-            <option value="3">Event Type</option>
+          <option value="0">Default</option>
+          <option value="1">Date Range</option>
+          <option value="2">Event Selection</option>
+          <option value="3">Event Type</option>
         </field>
         
         <field type="spacer" hr="true" />
         
         <field name="privacy" type="radio" default="1" label="Privacy" description="Select Public or Private Events">
-            <option value="1">Public</option>
-            <option value="2">Private</option>
-            <option value="0">Both</option>
+          <option value="1">Public</option>
+          <option value="2">Private</option>
+          <option value="0">Both</option>
         </field>
 
         <field name="link" type="list" default="0" label="Link Destination" description="Link Destination Page">
-            <option value="0">Event Information Page</option>
-            <option value="1">Event Registration Page</option>
-            <option value="2">Event Information Page with Register Link</option>
+          <option value="0">Event Information Page</option>
+          <option value="1">Event Registration Page</option>
+          <option value="2">Event Information Page with Register Link</option>
         </field>
         
         <field name="modal" type="radio" default="1" label="Link Style" description="Select Modal Link or Normal Link">
-            <option value="1">Modal Popup</option>
-            <option value="0">Page Redirection</option>
+          <option value="1">Modal Popup</option>
+          <option value="0">Page Redirection</option>
         </field>
         
         <field name="maxevents" type="text" default="10" size="10" label="Maximum Events Listed" description="Maximum number of events to be listed."></field>
         
         <field name="showdates" type="radio" default="1" label="Show Dates?" description="Indicate if you want the event dates listed.">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
         </field>
         
-        <field name="dateformat" type="text" default="m/d/Y" size="20" label="Date Format" description="Date display in strftime format"></field>
+        <field name="dateformat" type="text" default="m/d/Y" size="20" label="Date Format" description="Date display in PHP date format"></field>
         
         <field name="summary" type="radio" default="1" label="Display Summary Text?" description="Do you want to include event summary text with the listing?">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
         </field>
         
         <field type="spacer" hr="true" />
         <field type="spacer" label="&lt;b&gt;Sort Options&lt;/b&gt;" />
         
-        <field name="sort" type="radio" default="0" label="Sort By" description="Select Sorting options">
-            <option value="0">Title</option>
-            <option value="1">Start Date</option>
-            <option value="2">End Date</option>
+        <field name="sort" type="radio" default="1" label="Sort By" description="Select Sorting options">
+          <option value="0">Title</option>
+          <option value="1">Start Date</option>
+          <option value="2">End Date</option>
         </field>
         
         <field name="sortop" type="radio" default="0" label="Sort Method" description="Select Sorting options">
-            <option value="ASC">Ascending</option>
-            <option value="DESC">Descending</option>
+          <option value="ASC">Ascending</option>
+          <option value="DESC">Descending</option>
         </field>
         
         <field type="spacer" hr="true" />
@@ -87,21 +87,34 @@
     
         <field type="spacer" label="&lt;b&gt;Mode: Custom Event Selection Options&lt;/b&gt;" /> 
     
-        <field name="multievent" type="eventlist" default="0" label="Select Events" description="Select Events to be displayed"/>
+        <field name="multievent"
+               type="eventlist"
+               default="0"
+               label="Select Events"
+               description="Select Events to be displayed"
+               multiple="multiple"
+        />
                
         <field type="spacer" label="&lt;b&gt;Mode: Event Type Options&lt;/b&gt;" />
-    
-        <field name="tid" type="sql" default="10" label="Event Type" query="
-            SELECT civicrm_option_value.value, civicrm_option_value.label
-            FROM civicrm_option_value
-            INNER JOIN
-                civicrm_option_group
-            ON (civicrm_option_value.option_group_id = civicrm_option_group.id)
-            WHERE (civicrm_option_group.name = 'event_type')" 
-            key_field="value" value_field="label" />
-        
-        </fieldset>
-        </fields>
-    </config>
-	
+
+        <field name="tid"
+               type="sql"
+               label="Event Types"
+               query="
+          SELECT civicrm_option_value.value, civicrm_option_value.label
+          FROM civicrm_option_value
+          INNER JOIN civicrm_option_group
+            ON civicrm_option_value.option_group_id = civicrm_option_group.id
+          WHERE civicrm_option_group.name = 'event_type'"
+               key_field="value"
+               value_field="label"
+               multiple="multiple"
+               size="8"
+        />
+
+        <field name="itemid" type="menuitem" state="1" label="Menu Item" description="Select which existing menu item the search result links should be assigned to." />
+
+      </fieldset>
+    </fields>
+  </config>
 </extension>
