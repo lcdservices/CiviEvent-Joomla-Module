@@ -167,18 +167,18 @@ class modCiviEventHelper
       JError::raiseWarning(500,"No events meet the selected criteria.");
     }
 
-    return $result;
-    
-  } //end getEventTitles
+		return $result;
+		
+	} //end getEventTitles
   
   function sendParam(&$params) {
-    $displayParams['link']       = trim($params->get('link'));
-    $displayParams['modal']      = trim($params->get('modal'));
-    $displayParams['maxevents']  = trim($params->get('maxevents'));
-    $displayParams['showdates']  = trim($params->get('showdates'));
+    $displayParams['link'] = trim($params->get('link'));
+    $displayParams['modal'] = trim($params->get('modal'));
+    $displayParams['maxevents'] = trim($params->get('maxevents'));
+    $displayParams['showdates'] = trim($params->get('showdates'));
     $displayParams['dateformat'] = trim($params->get('dateformat'));
-    $displayParams['summary']    = trim($params->get('summary'));
-    $displayParams['itemid']     = trim($params->get('itemid'));
+    $displayParams['summary'] = trim($params->get('summary'));
+    $displayParams['itemid'] = trim($params->get('itemid'));
   
     return $displayParams;
   } //end sendParams

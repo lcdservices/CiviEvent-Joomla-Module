@@ -57,7 +57,7 @@ foreach ($eventtitles as &$event) {
         $registernow .= '&Itemid='.$displayParams['itemid'];
       }
     }
-    
+
 		// Format date
 		$event->start_date = JHtml::date( $event->start_date, $displayParams['dateformat'] );
 		if ($event->end_date) {
@@ -95,4 +95,3 @@ foreach ($eventtitles as &$event) {
 }
 
 echo '</ul>';
-?>
