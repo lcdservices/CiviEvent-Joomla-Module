@@ -14,12 +14,10 @@ class modCiviEventHelper
     $multievent = $params->get('multievent');
     $tid = $params->get('tid');
     $startdate = trim($params->get('startdate'));
-    $enddate = trim($params->get('enddate'));
     $privacy = trim($params->get('privacy'));
     $enddate = trim($params->get('enddate'));
     $sort = trim($params->get('sort'));
     $sortop = trim($params->get('sortop'));
-    $isactive = " AND is_active = 1 ";
     $isonline = " AND is_online_registration = 1 ";
   
     //retrieve all custom data tables impacting events
@@ -37,8 +35,6 @@ class modCiviEventHelper
     if ($db->getErrorNum()) {
       $customdatapresent = 0;
     }
-    //print_r($result_customevent);
-    //echo '<br />';
 
     //set core SELECT and FROM clauses based on presence of custom fields
     if ( $customdatapresent == 0 ) { //no custom data
@@ -59,9 +55,6 @@ class modCiviEventHelper
         }
         $arraycount = $arraycount + 1;
       }
-      //echo $select.'<br />';
-      //echo $from.'<br />';
-      //echo $arraycount.'<br />';
     }
     
     //set core WHERE clause
@@ -120,19 +113,16 @@ class modCiviEventHelper
         $enddate = date('Y-m-d', $enddate);
       }
       
-      if ( $startdate=="" OR $startdate=="Select" ) {
+      if ( $startdate == "" || $startdate == "Select" ) {
         //no start date selected, throw error
         JError::raiseWarning(500,"No start date selected for CiviEvent module.");
       }
-      elseif ( $enddate=="" OR $enddate=="Select" ) {
+      elseif ( $enddate == "" || $enddate == "Select" ) {
         //Open end date parameter
         $wheredaterange = " AND start_date >= '".$startdate."'";
       }
       else {
-        //both start and end date parameter, replace default end date range
-        //$wheredaterange = " AND start_date >= '".$startdate."'"." AND end_date <= '".$enddate."'";
-        
-        //v2 BOTH start/end date measured by event start date in order to make month-wrap ranges ruled by start
+        //BOTH start/end date measured by event start date in order to make month-wrap ranges ruled by start
         $wheredaterange = " AND start_date >= '".$startdate."'"." AND start_date < '".$enddate."'";
       }
       break;
