@@ -87,7 +87,7 @@ foreach ($eventtitles as &$event) {
 			echo '<br /><span class="eventdate">'.$eventdate.'</span>';
 		}
 		//Display summary text IF configured, and IF exists
-    if ( $displayParams[summary]==1 AND $event->summary ) {
+    if ( $displayParams['summary']==1 AND $event->summary ) {
 			echo '<br /><span class="eventsummary">'.$event->summary.'</span>';
 		}
 		echo '</li>';
