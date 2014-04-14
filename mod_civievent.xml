@@ -22,7 +22,12 @@
   <config>
     <fields name="params" addfieldpath="/modules/mod_civievent/elements">
       <fieldset name="basic">
-        
+        <field name="includecss" type="radio" default="0" label="Include CSS?" description="Indicates if the default module stylesheet should be injected into the rendering.">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </field>
+        <field name="noeventtext" type="text" default="No events were found" label="No Events Text" description="Text to be shown if no events are found.  Leave blank for none."></field>
+
         <field type="spacer" label="&lt;b&gt;Choose how events will be selected&lt;/b&gt;" />
         
         <field name="mode" type="list" default="0" label="Selection Mode" description="Choose event selection method">
