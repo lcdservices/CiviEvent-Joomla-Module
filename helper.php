@@ -4,11 +4,11 @@ class modCiviEventHelper
 {
 
   // show online member names
-  function getEventTitles(&$params) {
+  static function getEventTitles(&$params) {
     jimport( 'joomla.application.module.helper' );
     
     $mode = trim($params->get('mode'));
-    $db =& JFactory::getDBO();
+    $db = JFactory::getDBO();
     $result = null;
     $link = trim($params->get('link'));
     $multievent = $params->get('multievent');
@@ -161,7 +161,7 @@ class modCiviEventHelper
 		
 	} //end getEventTitles
   
-  function sendParam(&$params) {
+  static function sendParam(&$params) {
     $displayParams['link'] = trim($params->get('link'));
     $displayParams['modal'] = trim($params->get('modal'));
     $displayParams['maxevents'] = trim($params->get('maxevents'));
