@@ -8,7 +8,7 @@ class modCiviEventHelper
     jimport( 'joomla.application.module.helper' );
     
     $mode = trim($params->get('mode'));
-    $db =& JFactory::getDBO();
+    $db = JFactory::getDBO();
     $result = null;
     $link = trim($params->get('link'));
     $multievent = $params->get('multievent');
