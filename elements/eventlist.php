@@ -16,7 +16,7 @@ class JFormFieldEventlist extends JFormField
     $_class = $this->def( 'class' );
     $_size = $this->def( 'size', 10 );
 
-    $db =& JFactory::getDBO();
+    $db = JFactory::getDBO();
     $query  = "
       SELECT id, title
       FROM civicrm_event
