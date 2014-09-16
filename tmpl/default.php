@@ -65,7 +65,7 @@ if (count($eventtitles)) {
   			$event->end_date = JHtml::date( $event->end_date, $displayParams['dateformat'] );
   		}
   		
-  		if ($event->end_date) {
+  		if ($event->end_date && $displayParams['showdates'] != 2) {
   			$eventdate = $event->start_date." &#8211;".$event->end_date;
   		}
       else {
@@ -73,7 +73,8 @@ if (count($eventtitles)) {
   		}
   		
   		// Build html
-  		$thehtml = "<li class=\"civieventlist-item\">";
+  		// The title with link
+  		$thehtml = array('titlelink'=>'', 'registerlink'=>'', 'dates'=>'', 'summary'=>'');
   		if( $displayParams['modal'] ) {
   			$linkhtml = '<a class="modal civieventlist-item-title-link" href="'.$modallink.
   			            '" rel="{handler: \'iframe\', size: {x: 520, y: 400}}">'.$event->title.'</a>';
@@ -81,22 +82,34 @@ if (count($eventtitles)) {
       else {
   			$linkhtml = '<a href="'.$link.'" class="civieventlist-item-title-link">'.$event->title.'</a>';
   		}
-  		$thehtml .= "<div class=\"civieventlist-item-title\">$linkhtml</div>";
+  		$thehtml['titlelink'] = "<div class=\"civieventlist-item-title\">$linkhtml</div>";
   		
+  		// The register link, if included
   		if ( $displayParams['link']==2 ) {
-  		  $thehtml .= "<div class=\"civieventlist-item-register\">" .
+  		  $thehtml['registerlink'] = 
+  	                "<div class=\"civieventlist-item-register\">" .
   		              "<span class=\"eventregisternow\">&raquo; <a href=\"$registernow\">Register Now</a></span>" .
   		              "</div>";
   		}
+  		
+  		// The date(s) of the event
   		if ( $displayParams['showdates'] ) {
-  		  $thehtml .= "<div class=\"civieventlist-item-date\"><span class=\"eventdate\">$eventdate</span></div>";
+  		  $thehtml['dates'] = "<div class=\"civieventlist-item-date\"><span class=\"eventdate\">$eventdate</span></div>";
   		}
-  		//Display summary text IF configured, and IF exists
+
+  		// The summary text, if included
       if ( $displayParams['summary']==1 AND $event->summary ) {
-        $thehtml .= "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event->summary}</span></div>";
+        $thehtml['summary'] = "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event->summary}</span></div>";
   		}
-  		$thehtml .= '</li>';
-  		echo $thehtml;
+
+      // Put it all together
+  		$fullhtml = "<li class=\"civieventlist-item\">" .
+  		            $thehtml['dates'] .
+  		            $thehtml['titlelink'] .
+  		            $thehtml['registerlink'] .
+  		            $thehtml['summary'] .
+  		            '</li>';
+  		echo $fullhtml;
     }
   }
   
