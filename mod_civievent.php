@@ -15,4 +15,4 @@ require_once( dirname(__FILE__).'/helper.php' );
 $eventtitles   = modCiviEventHelper::getEventTitles( $params );
 $displayParams = modCiviEventHelper::sendParam( $params );
 
-require( JModuleHelper::getLayoutPath( 'mod_civievent' ) );
+require( JModuleHelper::getLayoutPath( 'mod_civievent', $params->get('layout', 'default') ) );

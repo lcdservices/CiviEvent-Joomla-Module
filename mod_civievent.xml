@@ -59,6 +59,7 @@
         <field name="maxevents" type="text" default="10" size="10" label="Maximum Events Listed" description="Maximum number of events to be listed."></field>
         
         <field name="showdates" type="radio" default="1" label="Show Dates?" description="Indicate if you want the event dates listed.">
+          <option value="2">Only Start Date</option>
           <option value="1">Yes</option>
           <option value="0">No</option>
         </field>
@@ -126,6 +127,13 @@
                description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
       </fieldset>
 
+      <fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+      </fieldset>
     </fields>
   </config>
 </extension>
