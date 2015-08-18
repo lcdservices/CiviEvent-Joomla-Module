@@ -41,13 +41,13 @@ if (count($eventtitles)) {
       
   	for ($i=0, $n=count( $event->title ); ($i < $n) ; $i++) {
       if($displayParams['link']==1) { //link set to register
-        $link = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
-        $modallink = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID.'&tmpl=component' );
+        $link = $baselink.'register&reset=1&id='.$event->eventID;
+        $modallink = $baselink.'register&reset=1&id='.$event->eventID.'&tmpl=component';
       }
       else { //link set to info page
-        $link = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID );
-        $modallink = JRoute::_( $baselink.'info&reset=1&id='.$event->eventID.'&tmpl=component' );
-        $registernow = JRoute::_( $baselink.'register&reset=1&id='.$event->eventID );
+        $link = $baselink.'info&reset=1&id='.$event->eventID;
+        $modallink = $baselink.'info&reset=1&id='.$event->eventID.'&tmpl=component';
+        $registernow = $baselink.'register&reset=1&id='.$event->eventID;
   		}
   		
       if ($displayParams['itemid']) {
@@ -58,6 +58,11 @@ if (count($eventtitles)) {
           $registernow .= '&Itemid='.$displayParams['itemid'];
         }
       }
+
+      //run the URLs through the router
+      $link = JRoute::_($link);
+      $modallink = JRoute::_($modallink);
+      $registernow = ($registernow) ? JRoute::_($registernow) : '';
   
   		// Format date
   		$event->start_date = JHtml::date( $event->start_date, $displayParams['dateformat'] );
