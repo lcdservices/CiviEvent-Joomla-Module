@@ -7,7 +7,7 @@
   <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
   <authorEmail>brian@lcdservices.biz</authorEmail>
   <authorUrl>www.lcdservices.biz</authorUrl>
-  <version>3.2.0</version>
+  <version>3.2.1</version>
   <description>Displays a list of upcoming events configured in CiviCRM. The module will also retrieve all custom data associated with the event and passes it to the module template file (tmpl/default.php). However, it does not display those fields, as they will be specific to your installation. Modify the module template file (which can be done via an override in your main Joomla template folder) to insert those additional fields as desired. Original version by Nakul Ganesh through the Google Summer of Code (2009) program.</description>
   
   <files>
@@ -88,8 +88,8 @@
         <field type="spacer" hr="true" />
         <field type="spacer" label="&lt;b&gt;Mode: Date Range Options&lt;/b&gt;" />
         
-        <field name="startdate" type="calendar" default="Select" label="Start date" description="" format="%d-%m-%Y" />
-        <field name="enddate" type="calendar" default="Select" label="End date" description="" format="%d-%m-%Y" />
+        <field name="startdate" type="calendar" default="" label="Start date" description="" format="%Y-%m-%d" />
+        <field name="enddate" type="calendar" default="" label="End date" description="" format="%Y-%m-%d" />
     
         <field type="spacer" label="&lt;b&gt;Mode: Custom Event Selection Options&lt;/b&gt;" /> 
     

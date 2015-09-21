@@ -3,3 +3,7 @@ CiviEvent Joomla Module
 Display a list of CiviCRM events in a Joomla module. Parameters allow you to filter the list by event type, date range, and various other criteria.
 
 The extension was originally developed by Nakul Ganesh, as part of the Google Summer of Code (2009) program. Ongoing development has been led by Brian Shaughnessy.
+
+Version History:
+
+v3.2.1 :: remove default value for date fields per changes in J3.4.4 (https://github.com/joomla/joomla-cms/issues/7846)
