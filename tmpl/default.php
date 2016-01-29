@@ -116,8 +116,8 @@ if (count($eventtitles)) {
   		            $thehtml['dates'] .
   		            $thehtml['titlelink'] .
   		            $thehtml['registerlink'] .
-                    $thehtml['summary'] .
-                    $thehtml['city'] .
+  		            $thehtml['summary'] .
+  		            $thehtml['city'] .
   		            '</li>';
   		echo $fullhtml;
     }
