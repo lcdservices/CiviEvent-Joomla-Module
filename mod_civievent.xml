@@ -70,7 +70,7 @@
           <option value="1">Yes</option>
           <option value="0">No</option>
         </field>
-        <field name="includecity" type="radio" default="0" label="Include City from adress field?" description="Include city in listing?">
+        <field name="includecity" type="radio" default="0" label="Include City from address field?" description="Include city in listing?">
           <option value="0">No</option>
           <option value="1">Yes</option>
         </field>
