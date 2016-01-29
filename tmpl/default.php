@@ -107,12 +107,17 @@ if (count($eventtitles)) {
         $thehtml['summary'] = "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event->summary}</span></div>";
   		}
 
+      if ( $displayParams['includecity']==1 AND $event->city ){
+        $thehtml['city'] = "<div class='civieventlist-item-city'><span class='eventcity'>{$event->city}</span></div>";
+      }
+
       // Put it all together
   		$fullhtml = "<li class=\"civieventlist-item\">" .
   		            $thehtml['dates'] .
   		            $thehtml['titlelink'] .
   		            $thehtml['registerlink'] .
-  		            $thehtml['summary'] .
+                    $thehtml['summary'] .
+                    $thehtml['city'] .
   		            '</li>';
   		echo $fullhtml;
     }
