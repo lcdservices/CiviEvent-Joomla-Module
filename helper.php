@@ -55,6 +55,10 @@ class modCiviEventHelper
         }
         $arraycount = $arraycount + 1;
       }
+      if($params->get('includecity',0)){
+          $select .= ', ca.city';
+          $from .= ' LEFT OUTER JOIN civicrm_loc_block clb ON clb.id = civicrm_event.loc_block_id LEFT OUTER JOIN civicrm_address ca ON ca.id = clb.address_id ';
+      }
     }
     
     //set core WHERE clause
@@ -166,6 +170,7 @@ class modCiviEventHelper
     $displayParams['modal'] = trim($params->get('modal'));
     $displayParams['maxevents'] = trim($params->get('maxevents'));
     $displayParams['showdates'] = trim($params->get('showdates'));
+    $displayParams['includecity'] = trim($params->get('includecity'));
     $displayParams['dateformat'] = trim($params->get('dateformat'));
     $displayParams['summary'] = trim($params->get('summary'));
     $displayParams['itemid'] = trim($params->get('itemid'));
