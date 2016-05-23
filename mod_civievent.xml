@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="1.6" method="upgrade" client="site">
-  <name>Module - CiviEvent</name>
+  <name>CiviEvent Listing</name>
   <author>Brian Shaughnessy</author>
   <creationDate>August, 2011</creationDate>
   <copyright>Copyright (C) 2005-2015 Open Source Matters. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
   <authorEmail>brian@lcdservices.biz</authorEmail>
   <authorUrl>www.lcdservices.biz</authorUrl>
-  <version>3.2.1</version>
+  <version>3.2.2</version>
   <description>Displays a list of upcoming events configured in CiviCRM. The module will also retrieve all custom data associated with the event and passes it to the module template file (tmpl/default.php). However, it does not display those fields, as they will be specific to your installation. Modify the module template file (which can be done via an override in your main Joomla template folder) to insert those additional fields as desired. Original version by Nakul Ganesh through the Google Summer of Code (2009) program.</description>
   
   <files>
@@ -65,6 +65,11 @@
         </field>
         
         <field name="dateformat" type="text" default="m/d/Y" size="20" label="Date Format" description="Date display in PHP date format"></field>
+
+        <field name="datezone" type="radio" default="1" label="Use Joomla Timezone" description="Convert the date using the Joomla timezone setting found in Global Configuration. You may not need this, depending on the configuration of your MySQL DB environment.">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
         
         <field name="summary" type="radio" default="1" label="Display Summary Text?" description="Do you want to include event summary text with the listing?">
           <option value="1">Yes</option>

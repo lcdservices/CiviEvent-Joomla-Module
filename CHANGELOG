@@ -5,3 +5,9 @@ Updated code for Joomla 1.6+ compatibility. No functionality changes. General cl
 
 v3.1.0 :: 2013-09-16
 Code cleanup. Improve date handling.
+
+v3.2.1 :: 2015-09-21
+Remove default value for date fields per changes in J3.4.4 (#7846)
+
+v3.2.2 :: 2015-05-23
+Add option to apply Joomla timezone setting to date display.

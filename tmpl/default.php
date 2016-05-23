@@ -24,7 +24,7 @@ if (count($eventtitles)) {
   echo '<ul class="civieventlist">';
   
   // Set number of records to be displayed and clear counter
-  $maxevents = ( $displayParams['maxevents'] ) ? $displayParams['maxevents'] : 10;
+  $maxevents = ($displayParams['maxevents']) ? $displayParams['maxevents'] : 10;
   
   $x = 1;
   
@@ -65,9 +65,16 @@ if (count($eventtitles)) {
       $registernow = ($registernow) ? JRoute::_($registernow) : '';
   
   		// Format date
-  		$event->start_date = JHtml::date( $event->start_date, $displayParams['dateformat'] );
+  		$event->start_date = ($displayParams['datezone']) ?
+        JHtml::date($event->start_date, $displayParams['dateformat']) :
+        date($displayParams['dateformat'], strtotime($event->start_date))
+      ;
+
   		if ($event->end_date) {
-  			$event->end_date = JHtml::date( $event->end_date, $displayParams['dateformat'] );
+  			$event->end_date = ($displayParams['datezone']) ?
+          JHtml::date($event->end_date, $displayParams['dateformat']) :
+          date($displayParams['dateformat'], strtotime($event->end_date))
+        ;
   		}
   		
   		if ($event->end_date && $displayParams['showdates'] != 2) {
