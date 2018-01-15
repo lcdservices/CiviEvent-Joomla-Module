@@ -8,7 +8,6 @@ class modCiviEventHelper
     jimport( 'joomla.application.module.helper' );
     
     $mode = trim($params->get('mode'));
-    $db = JFactory::getDBO();
     $result = null;
     $link = trim($params->get('link'));
     $multievent = $params->get('multievent');
@@ -19,46 +18,63 @@ class modCiviEventHelper
     $sort = trim($params->get('sort'));
     $sortop = trim($params->get('sortop'));
     $isonline = " AND is_online_registration = 1 ";
-  
-    //retrieve all custom data tables impacting events
-    $customdatapresent = 1; //assume data unless none found below
+
+    //initialize CiviCRM
+    require_once JPATH_ROOT.'/administrator/components/com_civicrm/civicrm.settings.php';
+    require_once 'CRM/Core/Config.php';
+    $config = CRM_Core_Config::singleton();
     
-    $query_customevent = "
+    $sql = "
       SELECT table_name
       FROM civicrm_custom_group
       WHERE extends = 'Event'
+        AND is_active = 1
     ";
-      
-    $db->setQuery($query_customevent);
-    $result_customevent = $db->loadObjectList();
-
-    if ($db->getErrorNum()) {
-      $customdatapresent = 0;
-    }
+    $dao = CRM_Core_DAO::executeQuery($sql);
+    //Civi::log()->debug('getEventTitles', array('$dao1' => $dao));
 
     //set core SELECT and FROM clauses based on presence of custom fields
-    if ( $customdatapresent == 0 ) { //no custom data
-      $select = 'SELECT title, id AS eventID, start_date, end_date, event_type_id, summary, is_active, is_public, is_online_registration';
+    if ($dao->N == 0) {
+      $select = '
+        SELECT title, 
+          civicrm_event.id AS eventID, 
+          start_date, 
+          end_date, 
+          event_type_id, 
+          summary, 
+          is_active, 
+          is_public, 
+          is_online_registration
+      ';
       $from = 'FROM civicrm_event';
     }
-    elseif ( $customdatapresent == 1 ) { //custom data present
+    else { //custom data present
       //for each custom event custom data table, build SELECT and FROM clause
-      //$arraycount = 0;
-      $select = 'SELECT civicrm_event.id AS eventID, civicrm_event.*';
+      $select = '
+        SELECT civicrm_event.id AS eventID, civicrm_event.*
+      ';
       $from = 'FROM civicrm_event';
       $arraycount = 0;
       
-      foreach( $result_customevent as $key => $value){ //recurse through the custom tables and build sql
-        foreach($value as $tablename) {
-          $select .= ', '.$tablename.'.*';
-          $from .= ' LEFT OUTER JOIN '.$tablename.' ON ('.$tablename.'.entity_id = civicrm_event.id)';
-        }
-        $arraycount = $arraycount + 1;
+      while($dao->fetch()){
+        //recurse through the custom tables and build sql
+        $select .= ', '.$dao->table_name.'.*';
+        $from .= '
+          LEFT OUTER JOIN '.$dao->table_name.' 
+            ON '.$dao->table_name.'.entity_id = civicrm_event.id
+        ';
+        $arraycount ++;
       }
-      if($params->get('includecity',0)){
-          $select .= ', ca.city';
-          $from .= ' LEFT OUTER JOIN civicrm_loc_block clb ON clb.id = civicrm_event.loc_block_id LEFT OUTER JOIN civicrm_address ca ON ca.id = clb.address_id ';
-      }
+    }
+
+    if($params->get('includecity',0)){
+      $select .= ', ca.city';
+      $from .= '
+          LEFT OUTER JOIN civicrm_loc_block clb 
+            ON clb.id = civicrm_event.loc_block_id
+          LEFT OUTER JOIN civicrm_address ca
+            ON ca.id = clb.address_id
+        ';
     }
     
     //set core WHERE clause
@@ -153,12 +169,12 @@ class modCiviEventHelper
     $query .= $sort;
     
     //run $query;
-    $db->setQuery($query);
-    $result = $db->loadObjectList();
-    
+    $dao = CRM_Core_DAO::executeQuery($query);
+    $result = $dao->fetchAll();
+    //Civi::log()->debug('getEventTitles', array('result' => $result));
 
-    if ($db->getErrorNum()) {
-      JError::raiseWarning(500,"No events meet the selected criteria.");
+    if ($dao->N == 0) {
+      JError::raiseWarning(500, "No events meet the selected criteria.");
     }
 
 		return $result;

@@ -9,7 +9,7 @@
 // No direct access
 defined('_JEXEC') or die;
 
-jimport( 'joomla.html.html' );
+jimport('joomla.html.html');
 
 if ( $displayParams['modal'] ) {
   jimport( 'joomla.html.html.behavior' );
@@ -28,7 +28,7 @@ if (count($eventtitles)) {
   
   $x = 1;
   
-  foreach ($eventtitles as &$event) {	
+  foreach ($eventtitles as $event) {
   
   	if ($x > $maxevents) {
   		return;
@@ -39,15 +39,15 @@ if (count($eventtitles)) {
       
     $baselink = 'index.php?option=com_civicrm&task=civicrm/event/';
       
-  	for ($i=0, $n=count( $event->title ); ($i < $n) ; $i++) {
+  	for ($i=0, $n=count($event['title']); ($i < $n) ; $i++) {
       if($displayParams['link']==1) { //link set to register
-        $link = $baselink.'register&reset=1&id='.$event->eventID;
-        $modallink = $baselink.'register&reset=1&id='.$event->eventID.'&tmpl=component';
+        $link = $baselink.'register&reset=1&id='.$event['eventID'];
+        $modallink = $baselink.'register&reset=1&id='.$event['eventID'].'&tmpl=component';
       }
       else { //link set to info page
-        $link = $baselink.'info&reset=1&id='.$event->eventID;
-        $modallink = $baselink.'info&reset=1&id='.$event->eventID.'&tmpl=component';
-        $registernow = $baselink.'register&reset=1&id='.$event->eventID;
+        $link = $baselink.'info&reset=1&id='.$event['eventID'];
+        $modallink = $baselink.'info&reset=1&id='.$event['eventID'].'&tmpl=component';
+        $registernow = $baselink.'register&reset=1&id='.$event['eventID'];
   		}
   		
       if ($displayParams['itemid']) {
@@ -65,23 +65,23 @@ if (count($eventtitles)) {
       $registernow = ($registernow) ? JRoute::_($registernow) : '';
   
   		// Format date
-  		$event->start_date = ($displayParams['datezone']) ?
-        JHtml::date($event->start_date, $displayParams['dateformat']) :
-        date($displayParams['dateformat'], strtotime($event->start_date))
+  		$event['start_date'] = ($displayParams['datezone']) ?
+        JHtml::date($event['start_date'], $displayParams['dateformat']) :
+        date($displayParams['dateformat'], strtotime($event['start_date']))
       ;
 
-  		if ($event->end_date) {
-  			$event->end_date = ($displayParams['datezone']) ?
-          JHtml::date($event->end_date, $displayParams['dateformat']) :
-          date($displayParams['dateformat'], strtotime($event->end_date))
+  		if ($event['end_date']) {
+  			$event['end_date'] = ($displayParams['datezone']) ?
+          JHtml::date($event['end_date'], $displayParams['dateformat']) :
+          date($displayParams['dateformat'], strtotime($event['end_date']))
         ;
   		}
   		
-  		if ($event->end_date && $displayParams['showdates'] != 2) {
-  			$eventdate = $event->start_date." &#8211;".$event->end_date;
+  		if ($event['end_date'] && $displayParams['showdates'] != 2) {
+  			$eventdate = $event['start_date']." &#8211;".$event['end_date'];
   		}
       else {
-  			$eventdate = $event->start_date;
+  			$eventdate = $event['start_date'];
   		}
   		
   		// Build html
@@ -89,43 +89,43 @@ if (count($eventtitles)) {
   		$thehtml = array('titlelink'=>'', 'registerlink'=>'', 'dates'=>'', 'summary'=>'');
   		if( $displayParams['modal'] ) {
   			$linkhtml = '<a class="modal civieventlist-item-title-link" href="'.$modallink.
-  			            '" rel="{handler: \'iframe\', size: {x: 520, y: 400}}">'.$event->title.'</a>';
+          '" rel="{handler: \'iframe\', size: {x: 520, y: 400}}">'.$event['title'].'</a>';
   		}
       else {
-  			$linkhtml = '<a href="'.$link.'" class="civieventlist-item-title-link">'.$event->title.'</a>';
+  			$linkhtml = '<a href="'.$link.'" class="civieventlist-item-title-link">'.$event['title'].'</a>';
   		}
   		$thehtml['titlelink'] = "<div class=\"civieventlist-item-title\">$linkhtml</div>";
   		
   		// The register link, if included
-  		if ( $displayParams['link']==2 ) {
+  		if ($displayParams['link'] == 2) {
   		  $thehtml['registerlink'] = 
-  	                "<div class=\"civieventlist-item-register\">" .
-  		              "<span class=\"eventregisternow\">&raquo; <a href=\"$registernow\">Register Now</a></span>" .
-  		              "</div>";
+          "<div class=\"civieventlist-item-register\">" .
+          "<span class=\"eventregisternow\">&raquo; <a href=\"$registernow\">Register Now</a></span>" .
+          "</div>";
   		}
   		
   		// The date(s) of the event
-  		if ( $displayParams['showdates'] ) {
+  		if ($displayParams['showdates']) {
   		  $thehtml['dates'] = "<div class=\"civieventlist-item-date\"><span class=\"eventdate\">$eventdate</span></div>";
   		}
 
   		// The summary text, if included
-      if ( $displayParams['summary']==1 && $event->summary ) {
-        $thehtml['summary'] = "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event->summary}</span></div>";
+      if ($displayParams['summary']==1 && $event['summary']) {
+        $thehtml['summary'] = "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event['summary']}</span></div>";
   		}
 
-      if ( $displayParams['includecity']==1 && $event->city ){
-        $thehtml['city'] = "<div class='civieventlist-item-city'><span class='eventcity'>{$event->city}</span></div>";
+      if ($displayParams['includecity']==1 && $event['city']){
+        $thehtml['city'] = "<div class='civieventlist-item-city'><span class='eventcity'>{$event['city']}</span></div>";
       }
 
       // Put it all together
   		$fullhtml = "<li class=\"civieventlist-item\">" .
-  		            $thehtml['dates'] .
-  		            $thehtml['titlelink'] .
-  		            $thehtml['registerlink'] .
-  		            $thehtml['summary'] .
-  		            $thehtml['city'] .
-  		            '</li>';
+        $thehtml['dates'] .
+        $thehtml['titlelink'] .
+        $thehtml['registerlink'] .
+        $thehtml['summary'] .
+        $thehtml['city'] .
+        '</li>';
   		echo $fullhtml;
     }
   }

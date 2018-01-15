@@ -8,16 +8,21 @@ class JFormFieldEventlist extends JFormField
   **/
   public $type = 'Eventlist';
 
-  private function def( $val, $default = '' ) {
-    return ( isset( $this->params[$val] ) && (string) $this->params[$val] != '' ) ? (string) $this->params[$val] : $default;
+  private function def($val, $default = '') {
+    return (isset( $this->params[$val]) && (string) $this->params[$val] != '') ?
+      (string) $this->params[$val] : $default;
   }
 
   protected function getInput() {
-    $_class = $this->def( 'class' );
-    $_size = $this->def( 'size', 10 );
+    //initialize CiviCRM
+    require_once JPATH_ROOT.'/administrator/components/com_civicrm/civicrm.settings.php';
+    require_once 'CRM/Core/Config.php';
+    $config = CRM_Core_Config::singleton();
 
-    $db = JFactory::getDBO();
-    $query  = "
+    $_class = $this->def('class');
+    $_size = $this->def('size', 10);
+
+    $query = "
       SELECT id, title
       FROM civicrm_event
       WHERE is_active = 1
@@ -25,8 +30,12 @@ class JFormFieldEventlist extends JFormField
         AND is_template != 1
       ORDER BY title
     ";
-    $db->setQuery($query);
-    $options = $db->loadObjectList();
+    $dao = CRM_Core_DAO::executeQuery($query);
+    $options = array();
+    while ($dao->fetch()) {
+      $options[$dao->id] = $dao->title;
+    }
+
     return JHTML::_('select.genericlist',
       $options,
       $this->name,
