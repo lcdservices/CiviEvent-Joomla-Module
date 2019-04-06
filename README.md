@@ -10,3 +10,4 @@ The extension was originally developed by Nakul Ganesh, as part of the Google Su
 * v3.2.1 :: 2015-09-21 :: Remove default value for date fields per changes in J3.4.4 (#7846)
 * v3.2.2 :: 2015-05-23 :: Add option to apply Joomla timezone setting to date display.
 * v3.3.0 :: 2018-01-15 :: Refactoring throughout. Use CiviCRM query functions to better handle split database configurations.
+* v3.3.1 :: 2019-04-06 :: Code cleanup. Fix some PHP warnings.
