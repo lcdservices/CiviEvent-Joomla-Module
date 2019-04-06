@@ -174,7 +174,8 @@ class modCiviEventHelper
     //Civi::log()->debug('getEventTitles', array('result' => $result));
 
     if ($dao->N == 0) {
-      JError::raiseWarning(500, "No events meet the selected criteria.");
+      //why would we want to raise a warning...
+      //JError::raiseWarning(500, "No events meet the selected criteria.");
     }
 
 		return $result;

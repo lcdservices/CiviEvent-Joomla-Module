@@ -26,7 +26,7 @@
           <option value="0">No</option>
           <option value="1">Yes</option>
         </field>
-        <field name="noeventtext" type="text" default="No events were found" label="No Events Text" description="Text to be shown if no events are found.  Leave blank for none."></field>
+        <field name="noeventtext" type="text" default="There are currently no upcoming events." label="No Events Text" description="Text to be shown if no events are found. Leave blank for none."></field>
 
         <field type="spacer" label="&lt;b&gt;Choose how events will be selected&lt;/b&gt;" />
         
