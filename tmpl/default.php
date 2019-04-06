@@ -11,8 +11,8 @@ defined('_JEXEC') or die;
 
 jimport('joomla.html.html');
 
-if ( $displayParams['modal'] ) {
-  jimport( 'joomla.html.html.behavior' );
+if ($displayParams['modal']) {
+  jimport('joomla.html.html.behavior');
   JHtmlBehavior::modal();
 }
 
@@ -27,9 +27,7 @@ if (count($eventtitles)) {
   $maxevents = ($displayParams['maxevents']) ? $displayParams['maxevents'] : 10;
   
   $x = 1;
-  
   foreach ($eventtitles as $event) {
-  
   	if ($x > $maxevents) {
   		return;
   	}
@@ -85,7 +83,13 @@ if (count($eventtitles)) {
 
     // Build html
     // The title with link
-    $thehtml = array('titlelink'=>'', 'registerlink'=>'', 'dates'=>'', 'summary'=>'');
+    $thehtml = [
+      'titlelink' => '',
+      'registerlink' => '',
+      'dates' => '',
+      'summary' => ''
+    ];
+
     if( $displayParams['modal'] ) {
       $linkhtml = '<a class="modal civieventlist-item-title-link" href="'.$modallink.
         '" rel="{handler: \'iframe\', size: {x: 520, y: 400}}">'.$event['title'].'</a>';
@@ -93,32 +97,32 @@ if (count($eventtitles)) {
     else {
       $linkhtml = '<a href="'.$link.'" class="civieventlist-item-title-link">'.$event['title'].'</a>';
     }
-    $thehtml['titlelink'] = "<div class=\"civieventlist-item-title\">$linkhtml</div>";
+    $thehtml['titlelink'] = "<div class='civieventlist-item-title'>$linkhtml</div>";
 
     // The register link, if included
     if ($displayParams['link'] == 2) {
       $thehtml['registerlink'] =
-        "<div class=\"civieventlist-item-register\">" .
-        "<span class=\"eventregisternow\">&raquo; <a href=\"$registernow\">Register Now</a></span>" .
+        "<div class='civieventlist-item-register'>" .
+        "<span class='eventregisternow'>&raquo; <a href='$registernow'>Register Now</a></span>" .
         "</div>";
     }
 
     // The date(s) of the event
     if ($displayParams['showdates']) {
-      $thehtml['dates'] = "<div class=\"civieventlist-item-date\"><span class=\"eventdate\">$eventdate</span></div>";
+      $thehtml['dates'] = "<div class='civieventlist-item-date'><span class='eventdate'>$eventdate</span></div>";
     }
 
     // The summary text, if included
-    if ($displayParams['summary']==1 && $event['summary']) {
-      $thehtml['summary'] = "<div class=\"civieventlist-item-summary\"><span class=\"eventsummary\">{$event['summary']}</span></div>";
+    if ($displayParams['summary'] == 1 && $event['summary']) {
+      $thehtml['summary'] = "<div class='civieventlist-item-summary'><span class='eventsummary'>{$event['summary']}</span></div>";
     }
 
-    if ($displayParams['includecity']==1 && $event['city']){
+    if ($displayParams['includecity'] == 1 && $event['city']){
       $thehtml['city'] = "<div class='civieventlist-item-city'><span class='eventcity'>{$event['city']}</span></div>";
     }
 
     // Put it all together
-    $fullhtml = "<li class=\"civieventlist-item\">" .
+    $fullhtml = "<li class='civieventlist-item'>" .
       CRM_Utils_Array::value('dates', $thehtml) .
       CRM_Utils_Array::value('titlelink', $thehtml) .
       CRM_Utils_Array::value('registerlink', $thehtml) .
@@ -129,7 +133,8 @@ if (count($eventtitles)) {
   }
   
   echo '</ul>';
-} else {
+}
+else {
   if ($params->get('noeventtext', '')) {
     echo '<div class="civieventlist-no-events">'.htmlspecialchars($params->get('noeventtext', '')).'</div>';
   }
