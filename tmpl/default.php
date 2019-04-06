@@ -119,18 +119,18 @@ if (count($eventtitles)) {
 
     // Put it all together
     $fullhtml = "<li class=\"civieventlist-item\">" .
-      $thehtml['dates'] .
-      $thehtml['titlelink'] .
-      $thehtml['registerlink'] .
-      $thehtml['summary'] .
-      $thehtml['city'] .
+      CRM_Utils_Array::value('dates', $thehtml) .
+      CRM_Utils_Array::value('titlelink', $thehtml) .
+      CRM_Utils_Array::value('registerlink', $thehtml) .
+      CRM_Utils_Array::value('summary', $thehtml) .
+      CRM_Utils_Array::value('city', $thehtml) .
       '</li>';
     echo $fullhtml;
   }
   
   echo '</ul>';
 } else {
-  if ($params->get('noeventtext','')) {
-    echo '<div class="civieventlist-no-events">'.htmlspecialchars($params->get('noeventtext','')).'</div>';
+  if ($params->get('noeventtext', '')) {
+    echo '<div class="civieventlist-no-events">'.htmlspecialchars($params->get('noeventtext', '')).'</div>';
   }
 }
